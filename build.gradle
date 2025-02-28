@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.aurora.driver'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('com.zaxxer:HikariCP:6.2.1')
+    implementation('com.mysql:mysql-connector-j:9.2.0')
+    implementation('software.amazon.jdbc:aws-advanced-jdbc-wrapper:2.5.4')
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.example.Main',
+            'Implementation-Title': 'Aurora Database Test',
+            'Implementation-Version': '1.0'
+        )
+    }
+    
+    // 将所有依赖打包到 JAR 中
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    // 解决重复文件的问题
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
