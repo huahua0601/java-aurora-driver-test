@@ -32,16 +32,17 @@ public class DatabaseConfig {
             dbHost != null ? dbHost : "localhost",
             dbPort != null ? dbPort : "3306",
             dbName != null ? dbName : "test");
-            
+        System.out.println("Current DB URL:" + dbUrl);    
         config.setJdbcUrl(dbUrl);
         config.setUsername(System.getenv("DB_USERNAME"));
         config.setPassword(System.getenv("DB_PASSWORD"));
         config.setDriverClassName("software.amazon.jdbc.Driver");
         
         // AWS JDBC wrapper 配置
-        config.addDataSourceProperty("wrapperPlugins", "failover,efm2");
-        config.addDataSourceProperty("failoverTimeoutMs", "10000");
-        config.addDataSourceProperty("failoverReaderHostPattern", "*.*.region.rds.amazonaws.com");
+        config.addDataSourceProperty("wrapperPlugins", "initialConnection,auroraConnectionTracker,failover2,efm2");
+        config.addDataSourceProperty("failoverTimeoutMs", "60000");
+        config.addDataSourceProperty("verifyOpenedConnectionType", "writer");
+        config.addDataSourceProperty("clusterInstanceHostPattern", "?.c8gkhofhtia4.us-east-1.rds.amazonaws.com");
         
         // HikariCP 连接池配置
         config.setMaximumPoolSize(10);
