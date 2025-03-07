@@ -37,18 +37,25 @@ public class DatabaseConfig {
         config.setUsername(System.getenv("DB_USERNAME"));
         config.setPassword(System.getenv("DB_PASSWORD"));
         config.setDriverClassName("software.amazon.jdbc.Driver");
+
+        //  AWS JDBC wrapper logger configuration
+        config.addDataSourceProperty("loggerLevel", "TRACE");
+        config.addDataSourceProperty("defaultLoggerLevel", "TRACE");
+        config.addDataSourceProperty("enableVerboseLogging", "true");
         
         // AWS JDBC wrapper 配置
         config.addDataSourceProperty("wrapperPlugins", "initialConnection,auroraConnectionTracker,failover2,efm2");
         config.addDataSourceProperty("failoverTimeoutMs", "60000");
         config.addDataSourceProperty("verifyOpenedConnectionType", "writer");
         config.addDataSourceProperty("clusterInstanceHostPattern", "?.c8gkhofhtia4.us-east-1.rds.amazonaws.com");
-        
+        config.addDataSourceProperty("wrapperDialect", "aurora-mysql");
+
         // HikariCP 连接池配置
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(5);
         config.setIdleTimeout(300000);
         config.setConnectionTimeout(20000);
+        
         
         dataSource = new HikariDataSource(config);
     }
