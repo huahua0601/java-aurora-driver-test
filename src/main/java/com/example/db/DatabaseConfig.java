@@ -43,7 +43,7 @@ public class DatabaseConfig {
         config.addDataSourceProperty("defaultLoggerLevel", "TRACE");
         config.addDataSourceProperty("enableVerboseLogging", "true");
         
-        // AWS JDBC wrapper 配置
+        // AWS JDBC wrapper 配置, 如果连接其他的非Aurora Mysql数据库,请注释掉以下所有参数配置.
         config.addDataSourceProperty("wrapperPlugins", "initialConnection,auroraConnectionTracker,failover2,efm2");
         config.addDataSourceProperty("failoverTimeoutMs", "60000");
         config.addDataSourceProperty("verifyOpenedConnectionType", "writer");

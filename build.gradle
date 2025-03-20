@@ -12,7 +12,7 @@ repositories {
 dependencies {
     implementation('com.zaxxer:HikariCP:6.2.1')
     implementation('com.mysql:mysql-connector-j:9.2.0')
-    implementation files('/Users/seanguo/Downloads/aws-advanced-jdbc-wrapper-2.5.5-20250303.181434-75.jar')
+    implementation group: 'software.amazon.jdbc', name: 'aws-advanced-jdbc-wrapper', version: '2.5.5'
     implementation('org.apache.logging.log4j:log4j-core:2.20.0')
     implementation('org.apache.logging.log4j:log4j-api:2.20.0')
     implementation('org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0')
